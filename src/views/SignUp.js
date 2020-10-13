@@ -1,9 +1,10 @@
 import React from 'react'
+import Lock from "../components/icons/Lock";
 
 /**
  * TODO:
  *  - add icons
- */
+ */ 
 function SignUp() {
   return (
     <div className="flex items-center justify-center h-screen">
@@ -13,10 +14,13 @@ function SignUp() {
         <p className="my-3 mr-5 leading-tight">Master web development by making real-life projects. There are multiple paths for you to choose</p>
         <div id="login-form" className="my-6">
           <form className="m-0">
-            <label htmlFor="email" />
-            <input id="email" type="text" className="border-2 border-gray-400 rounded-lg w-full h-10 my-1 p-3 focus:outline-none text-sm" placeholder="{icon} email"/>
-            <label htmlFor="password" />
-            <input id="password" type="text" className="border-2 border-gray-400 rounded-lg w-full h-10 my-1 p-3 focus:outline-none text-sm" placeholder="{icon} password" />
+            <label htmlFor="email">
+              <input id="email" type="text" className="border-2 border-gray-400 rounded-lg w-full h-10 my-1 p-3 focus:outline-none text-sm" placeholder="{icon} email"/>
+            </label>
+            <label htmlFor="password" className="relative">
+              <Lock className="fill-current text-gray-500 h-5 m-3 absolute"/>
+              <input id="password" type="password" className="border-2 border-gray-400 rounded-lg w-full h-10 my-1 p-3 pl-10 focus:outline-none text-sm" placeholder="password" />
+            </label>
             <button className="bg-blue-600 text-white rounded-lg w-full h-8 mt-3">Start coding now</button>
           </form>
         </div>
