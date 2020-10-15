@@ -1,10 +1,6 @@
 import React from 'react'
 import {Lock, Envelope} from "../components/icons";
 
-/**
- * TODO:
- *  - add icons
- */ 
 function SignUp() {
   return (
     <div className="flex items-center justify-center h-screen">
