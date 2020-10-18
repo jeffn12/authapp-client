@@ -1,7 +1,8 @@
 import React from 'react';
 import { Lock, Envelope } from '../components/icons';
 
-function SignUp() {
+function SignUp(props) {
+  const { setUser } = props;
   const onSubmit = (e) => {
     e.preventDefault();
     fetch('http://localhost:4141/auth/register', {
@@ -16,7 +17,10 @@ function SignUp() {
       }),
     })
       .then((res) => res.json())
-      .then((json) => console.log(json))
+      .then((json) => {
+        console.log(json);
+        setUser('user');
+      })
       .catch((err) => console.error(err));
   };
 

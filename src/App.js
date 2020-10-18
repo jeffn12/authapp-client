@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { SignUp, Login, Profile } from './views';
 
 function App() {
+  const [user, setUser] = useState(null);
   return (
     <div>
-      <p className="text-red-500 text-center">auth app</p>
+      {!user && <SignUp setUser={setUser} />}
+      {user && <Profile />}
     </div>
   );
 }
