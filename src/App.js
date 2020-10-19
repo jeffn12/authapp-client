@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { SignUp, Login, Profile } from './views';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [toggle, setToggle] = useState(true);
   return (
     <div>
-      {!user && <SignUp setUser={setUser} />}
-      {user && <Profile />}
+      {toggle ? <Login /> : <SignUp />}
+      <button onClick={() => setToggle(!toggle)}>
+        {toggle ? 'Register' : 'Login'}
+      </button>
     </div>
   );
 }
