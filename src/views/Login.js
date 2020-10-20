@@ -1,23 +1,21 @@
 import React from 'react';
 import { Lock, Envelope } from '../components/icons';
+import axios from 'axios';
 
 function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:4141/user/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: e.target.email.value,
-        password: e.target.password.value,
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
+    axios
+      .post(
+        'http://localhost:4141/user/login',
+        {
+          username: e.target.email.value,
+          password: e.target.password.value,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
       })
       .catch((err) => console.error(err));
   };

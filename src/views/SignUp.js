@@ -1,21 +1,15 @@
 import React from 'react';
 import { Lock, Envelope } from '../components/icons';
+import axios from 'axios';
 
 function SignUp(props) {
   const onSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:4141/user/register', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    axios
+      .post('http://localhost:4141/user/register', {
         username: e.target.email.value,
         password: e.target.password.value,
-      }),
-    })
-      .then((res) => res.json())
+      })
       .then((json) => {
         console.log(json);
         //setUser('user');
