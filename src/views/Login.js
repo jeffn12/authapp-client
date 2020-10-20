@@ -4,7 +4,7 @@ import { Lock, Envelope } from '../components/icons';
 function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:4141/auth/login', {
+    fetch('http://localhost:4141/user/login', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

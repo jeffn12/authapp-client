@@ -4,7 +4,7 @@ import { Lock, Envelope } from '../components/icons';
 function SignUp(props) {
   const onSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:4141/auth/register', {
+    fetch('http://localhost:4141/user/register', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
