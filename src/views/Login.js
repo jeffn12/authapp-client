@@ -22,6 +22,7 @@ function Login(props) {
           )
           .then((res) => {
             console.log(res);
+            props.setProfile(res.data.user);
             history.push('/profile');
           })
           .catch((err) => console.log(err.response));
