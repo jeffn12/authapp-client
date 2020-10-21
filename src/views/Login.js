@@ -1,6 +1,7 @@
 import React from 'react';
 import { Lock, Envelope } from '../components/icons';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 function Login() {
   const handleSubmit = (e) => {

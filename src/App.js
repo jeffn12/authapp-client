@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { SignUp, Login, Profile } from './views';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 function App() {
-  const [toggle, setToggle] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const getProfile = () => {
     axios
@@ -16,14 +17,21 @@ function App() {
       .then((res) => console.log(res));
   };
   return (
-    <div>
-      <button onClick={getProfile}>ping server for profile</button>
-      <button onClick={handleLogout}>ping server to logout</button>
-      {toggle ? <Login /> : <SignUp />}
-      <button onClick={() => setToggle(!toggle)}>
-        {toggle ? 'Register' : 'Login'}
-      </button>
-    </div>
+    <Router>
+      <Route exact path="/">
+        {loggedIn ? (
+          <Redirect to="/profile" />
+        ) : (
+          <Login setLoggedIn={setLoggedIn} />
+        )}
+      </Route>
+      <Route path="/profile">
+        <Profile />
+      </Route>
+      <Route path="/register">
+        <SignUp />
+      </Route>
+    </Router>
   );
 }
 
