@@ -9,7 +9,7 @@ function Login() {
       .post(
         'http://localhost:4141/user/login',
         {
-          username: e.target.email.value,
+          email: e.target.email.value,
           password: e.target.password.value,
         },
         { withCredentials: true }
