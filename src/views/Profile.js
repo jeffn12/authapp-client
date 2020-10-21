@@ -1,17 +1,17 @@
+import Axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Profile() {
-  const [profile, setProfile] = useState('');
   useEffect(() => {
-    fetch('http://localhost:4141/profile')
-      .then((res) => res.json())
-      .then((json) => setProfile(JSON.stringify(json)))
-      .catch((err) => console.error(err));
+    axios
+      .get('http://localhost:4141/user/profile', { withCredentials: true })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.response));
   }, []);
   return (
     <div>
       <p>PROFILE:</p>
-      {profile && <p>{profile}</p>}
     </div>
   );
 }

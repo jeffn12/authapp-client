@@ -3,7 +3,7 @@ import { Lock, Envelope } from '../components/icons';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
   const history = useHistory();
 
   const handleSubmit = (e) => {
@@ -21,12 +21,8 @@ function Login() {
             { withCredentials: true }
           )
           .then((res) => {
-            if (res.status !== 200) {
-              console.log('uh oh...');
-            } else {
-              history.push('/profile');
-            }
             console.log(res);
+            history.push('/profile');
           })
           .catch((err) => console.log(err.response));
       } catch (err) {
