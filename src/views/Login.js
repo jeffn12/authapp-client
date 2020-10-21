@@ -1,24 +1,38 @@
 import React from 'react';
 import { Lock, Envelope } from '../components/icons';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        'http://localhost:4141/user/login',
-        {
-          email: e.target.email.value,
-          password: e.target.password.value,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.error(err));
+    if (e.target.email.value === '' || e.target.password.value === '') {
+    } else {
+      try {
+        axios
+          .post(
+            'http://localhost:4141/user/login',
+            {
+              email: e.target.email.value,
+              password: e.target.password.value,
+            },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            if (res.status !== 200) {
+              console.log('uh oh...');
+            } else {
+              history.push('/profile');
+            }
+            console.log(res);
+          })
+          .catch((err) => console.log(err.response));
+      } catch (err) {
+        console.log('uh oh', err);
+      }
+    }
   };
 
   return (
@@ -42,6 +56,7 @@ function Login() {
                 type="text"
                 className="border-2 border-gray-400 rounded-lg w-full h-10 pl-8 focus:outline-none text-sm"
                 placeholder="email"
+                required
               />
             </label>
             <label htmlFor="password">
@@ -51,6 +66,7 @@ function Login() {
                 type="password"
                 className="border-2 border-gray-400 rounded-lg w-full h-10 pl-8 focus:outline-none text-sm"
                 placeholder="password"
+                required
               />
             </label>
             <button className="bg-blue-600 text-white rounded-lg w-full h-8 mt-3">
