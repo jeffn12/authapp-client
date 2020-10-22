@@ -32,6 +32,17 @@ function Login(props) {
     }
   };
 
+  const handleGitHubAuth = () => {
+    console.log('Logging in with GitHub');
+    axios
+      .get('http://localhost:4141/auth/github', {
+        withCredentials: true,
+        // headers: { 'Access-Control-Allow-Origin': '*' },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div
@@ -78,9 +89,9 @@ function Login(props) {
           <a href="/" className="mx-3">
             <img src="/Google.svg" alt="google logo" />
           </a>
-          <a href="/" className="mx-3">
+          <button className="mx-3" onClick={handleGitHubAuth}>
             <img src="/Github.svg" alt="github logo" />
-          </a>
+          </button>
         </div>
         <p className="text-center text-sm">
           Don't have an account yet?{' '}

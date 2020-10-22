@@ -6,11 +6,13 @@ import {
   Route,
   Redirect,
   Link,
+  useHistory,
 } from 'react-router-dom';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     //TODO:
@@ -19,6 +21,9 @@ function App() {
       .get('http://localhost:4141/user/profile', { withCredentials: true })
       .then((res) => {
         if (res.data.user) setProfile(res.data.user);
+        setLoading(false);
+      })
+      .catch((err) => {
         setLoading(false);
       });
     // if it is, set the profile info to the user returned
@@ -34,11 +39,15 @@ function App() {
   const handleLogout = () => {
     axios
       .get('http://localhost:4141/user/logout', { withCredentials: true })
-      .then((res) => console.log(res));
+      .then((res) => {
+        console.log(res);
+        setProfile(null);
+      });
   };
 
   return (
     <Router>
+      {profile && <button onClick={handleLogout}>Logout</button>}
       <Route exact path="/">
         {!loading ? (
           profile ? (
