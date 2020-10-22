@@ -1,11 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SignUp, Login, Profile } from './views';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Link,
+} from 'react-router-dom';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    //TODO:
+    // call the api to find out if the session is still active
+    axios
+      .get('http://localhost:4141/user/profile', { withCredentials: true })
+      .then((res) => {
+        if (res.data.user) setProfile(res.data.user);
+        setLoading(false);
+      });
+    // if it is, set the profile info to the user returned
+    // if it isn't, leave profile as null
+  }, []);
 
   const getProfile = () => {
     axios
@@ -22,10 +40,18 @@ function App() {
   return (
     <Router>
       <Route exact path="/">
-        {loggedIn ? <Redirect to="/profile" /> : <Redirect to="/login" />}
+        {!loading ? (
+          profile ? (
+            <Redirect to="/profile" />
+          ) : (
+            <Link to="/login">You have to login first</Link>
+          )
+        ) : (
+          <p>Loading...</p>
+        )}
       </Route>
       <Route path="/profile">
-        <Profile profile={profile} />
+        {!loading ? <Profile profile={profile} /> : <p>Loading...</p>}
       </Route>
       <Route path="/register">
         <SignUp />
