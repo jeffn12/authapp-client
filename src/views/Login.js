@@ -3,6 +3,8 @@ import { Lock, Envelope } from '../components/icons';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../firebase/firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 function Login(props) {
   const history = useHistory();
@@ -23,15 +25,11 @@ function Login(props) {
     }
   };
 
-  const handleGitHubAuth = () => {
+  const handleGitHubAuth = async () => {
     console.log('Logging in with GitHub');
-    axios
-      .get('http://localhost:4141/auth/github', {
-        withCredentials: true,
-        // headers: { 'Access-Control-Allow-Origin': '*' },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    const provider = new firebase.auth.GithubAuthProvider();
+    await auth.signInWithPopup(provider);
+    history.push('/profile');
   };
 
   return (
