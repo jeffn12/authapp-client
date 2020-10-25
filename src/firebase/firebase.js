@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import FS_VARS from '/.firebase.config.js';
+import FS_VARS from './.firebase.config.js';
 
 const firebaseConfig = {
   apiKey: FS_VARS.apiKey,

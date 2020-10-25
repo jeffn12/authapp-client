@@ -2,30 +2,21 @@ import React from 'react';
 import { Lock, Envelope } from '../components/icons';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { auth } from '../firebase/firebase';
 
 function Login(props) {
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (e.target.email.value === '' || e.target.password.value === '') {
     } else {
       try {
-        axios
-          .post(
-            'http://localhost:4141/user/login',
-            {
-              email: e.target.email.value,
-              password: e.target.password.value,
-            },
-            { withCredentials: true }
-          )
-          .then((res) => {
-            console.log(res);
-            props.setProfile(res.data.user);
-            history.push('/profile');
-          })
-          .catch((err) => console.log(err.response));
+        await auth.signInWithEmailAndPassword(
+          e.target.email.value,
+          e.target.password.value
+        );
+        history.push('/profile');
       } catch (err) {
         console.log('uh oh', err);
       }

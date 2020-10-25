@@ -1,20 +1,15 @@
 import React from 'react';
 import { Lock, Envelope } from '../components/icons';
 import axios from 'axios';
+import { auth } from '../firebase/firebase';
 
 function SignUp(props) {
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post('http://localhost:4141/user/register', {
-        username: e.target.email.value,
-        password: e.target.password.value,
-      })
-      .then((json) => {
-        console.log(json);
-        //setUser('user');
-      })
-      .catch((err) => console.error(err));
+    await auth.createUserWithEmailAndPassword(
+      e.target.email.value,
+      e.target.password.value
+    );
   };
 
   return (
