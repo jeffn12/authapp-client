@@ -28,6 +28,16 @@ function Login(props) {
   const handleGitHubAuth = async () => {
     console.log('Logging in with GitHub');
     const provider = new firebase.auth.GithubAuthProvider();
+    handlePopupAuth(provider);
+  };
+
+  const handleGoogleAuth = async () => {
+    console.log('Logging in with Google');
+    const provider = new firebase.auth.GoogleAuthProvider();
+    handlePopupAuth(provider);
+  };
+
+  const handlePopupAuth = async (provider) => {
     await auth.signInWithPopup(provider);
     history.push('/profile');
   };
@@ -75,9 +85,9 @@ function Login(props) {
           or continue with these social profiles
         </p>
         <div id="social-profiles" className="flex justify-center my-3">
-          <a href="/" className="mx-3">
+          <button className="mx-3" onClick={handleGoogleAuth}>
             <img src="/Google.svg" alt="google logo" />
-          </a>
+          </button>
           <button className="mx-3" onClick={handleGitHubAuth}>
             <img src="/Github.svg" alt="github logo" />
           </button>
