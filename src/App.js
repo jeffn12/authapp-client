@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { SignUp, Login, Profile } from './views';
-import axios from 'axios';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,19 +13,11 @@ function App() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    //TODO:
-    // call the api to find out if the session is still active
     auth.onAuthStateChanged((user) => {
       setProfile(user);
       setLoading(false);
     });
   }, []);
-
-  const getProfile = () => {
-    axios
-      .get('http://localhost:4141/user/profile', { withCredentials: true })
-      .then((res) => console.log(res));
-  };
 
   const handleLogout = () => {
     auth.signOut().then(() => {
@@ -55,7 +46,7 @@ function App() {
         <SignUp />
       </Route>
       <Route path="/login">
-        <Login setProfile={setProfile} />
+        <Login />
       </Route>
     </Router>
   );

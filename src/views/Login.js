@@ -1,6 +1,5 @@
 import React from 'react';
 import { Lock, Envelope } from '../components/icons';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../firebase/firebase';
 import firebase from 'firebase/app';
