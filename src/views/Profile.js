@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import NavBar from './NavBar';
 
 // TODO:
 // create UI
@@ -14,6 +15,7 @@ function Profile(props) {
     <div>
       {props.profile ? (
         <>
+          <NavBar />
           <p>Welcome back {props.profile.email}!</p>
           <p>Welcome back {props.profile.displayName}!</p>
           <img
