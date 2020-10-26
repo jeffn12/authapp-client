@@ -2,14 +2,16 @@ import React from 'react';
 import firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../firebase/firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 function SocialProfileSignIn() {
   const history = useHistory();
+  const { loginWithGitHub } = useAuth();
 
   const handleGitHubAuth = async () => {
     console.log('Logging in with GitHub');
-    const provider = new firebase.auth.GithubAuthProvider();
-    handlePopupAuth(provider);
+    await loginWithGitHub();
+    history.push('/profile');
   };
 
   const handleGoogleAuth = async () => {

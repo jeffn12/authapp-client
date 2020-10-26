@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import firebase from 'firebase/app';
 import { auth } from '../firebase/firebase';
 
 const AuthContext = createContext();
@@ -24,6 +25,19 @@ export function AuthContextProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password);
   }
 
+  // authenticate with GitHub
+  function loginWithGitHub() {
+    const provider = new firebase.auth.GithubAuthProvider();
+    return handlePopupAuth(provider);
+  }
+
+  // authenticate with Google
+
+  // authenticate with popup
+  function handlePopupAuth(provider) {
+    return auth.signInWithPopup(provider);
+  }
+
   // logout
   function signout() {
     return auth.signOut();
@@ -40,6 +54,7 @@ export function AuthContextProvider({ children }) {
     user,
     registerWithEmail,
     loginWithEmail,
+    loginWithGitHub,
     signout,
   };
   return (
