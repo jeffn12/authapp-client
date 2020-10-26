@@ -2,20 +2,18 @@ import React from 'react';
 import SocialProfileAuth from '../components/SocialProfileAuth';
 import { Lock, Envelope } from '../components/icons';
 import { Link, useHistory } from 'react-router-dom';
-import { auth } from '../firebase/firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 function Login(props) {
   const history = useHistory();
+  const { loginWithEmail } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (e.target.email.value === '' || e.target.password.value === '') {
     } else {
       try {
-        await auth.signInWithEmailAndPassword(
-          e.target.email.value,
-          e.target.password.value
-        );
+        await loginWithEmail(e.target.email.value, e.target.password.value);
         history.push('/profile');
       } catch (err) {
         console.log('uh oh', err);

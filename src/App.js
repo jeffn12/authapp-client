@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { SignUp, Login, Profile } from './views';
 import {
   BrowserRouter as Router,
@@ -7,17 +7,11 @@ import {
   Link,
 } from 'react-router-dom';
 import { auth } from './firebase/firebase';
+import { useAuth } from './contexts/AuthContext';
 
 function App() {
-  const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null);
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setProfile(user);
-      setLoading(false);
-    });
-  }, []);
+  const { user } = useAuth();
 
   const handleLogout = () => {
     auth.signOut().then(() => {
@@ -27,20 +21,16 @@ function App() {
 
   return (
     <Router>
-      {profile && <button onClick={handleLogout}>Logout</button>}
+      {user && <button onClick={handleLogout}>Logout</button>}
       <Route exact path="/">
-        {!loading ? (
-          profile ? (
-            <Redirect to="/profile" />
-          ) : (
-            <Link to="/login">You have to login first</Link>
-          )
+        {user ? (
+          <Redirect to="/profile" />
         ) : (
-          <p>Loading...</p>
+          <Link to="/login">You have to login first</Link>
         )}
       </Route>
       <Route path="/profile">
-        {!loading ? <Profile profile={profile} /> : <p>Loading...</p>}
+        <Profile profile={user} />
       </Route>
       <Route path="/register">
         <SignUp />

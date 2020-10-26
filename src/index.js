@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './tailwind.output.css';
 //import App from './App';
 import App from './App';
+import { AuthContextProvider } from './contexts/AuthContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
