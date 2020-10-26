@@ -2,6 +2,7 @@ import React from 'react';
 import SocialProfileAuth from './SocialProfileAuth';
 import { Lock, Envelope } from '../components/icons';
 import { auth } from '../firebase/firebase';
+import { Link } from 'react-router-dom';
 
 function SignUp(props) {
   const onSubmit = async (e) => {
@@ -60,9 +61,9 @@ function SignUp(props) {
         <SocialProfileAuth />
         <p className="text-center text-sm">
           Already a member?{' '}
-          <a href="/" className="text-blue-600">
+          <Link to="/login" className="text-blue-600">
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>

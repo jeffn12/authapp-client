@@ -1,7 +1,7 @@
 import React from 'react';
 import SocialProfileAuth from './SocialProfileAuth';
 import { Lock, Envelope } from '../components/icons';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../firebase/firebase';
 
 function Login(props) {
@@ -65,9 +65,9 @@ function Login(props) {
         <SocialProfileAuth />
         <p className="text-center text-sm">
           Don't have an account yet?{' '}
-          <a href="/" className="text-blue-600">
+          <Link to="/register" className="text-blue-600">
             Register
-          </a>
+          </Link>
         </p>
       </div>
     </div>
