@@ -1,8 +1,8 @@
 import React from 'react';
-import SocialProfileAuth from './SocialProfileAuth';
+import { Link } from 'react-router-dom';
 import { Lock, Envelope } from '../components/icons';
 import { auth } from '../firebase/firebase';
-import { Link } from 'react-router-dom';
+import SocialProfileAuth from '../components/SocialProfileAuth';
 
 function SignUp(props) {
   const onSubmit = async (e) => {

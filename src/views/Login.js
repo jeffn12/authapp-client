@@ -1,5 +1,5 @@
 import React from 'react';
-import SocialProfileAuth from './SocialProfileAuth';
+import SocialProfileAuth from '../components/SocialProfileAuth';
 import { Lock, Envelope } from '../components/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../firebase/firebase';
