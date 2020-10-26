@@ -24,6 +24,10 @@ export function AuthContextProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password);
   }
 
+  // logout
+  function signout() {
+    return auth.signOut();
+  }
   // manage user status
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -36,6 +40,7 @@ export function AuthContextProvider({ children }) {
     user,
     registerWithEmail,
     loginWithEmail,
+    signout,
   };
   return (
     <AuthContext.Provider value={value}>

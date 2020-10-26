@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SignUp, Login, Profile } from './views';
 import {
   BrowserRouter as Router,
@@ -6,22 +6,14 @@ import {
   Redirect,
   Link,
 } from 'react-router-dom';
-import { auth } from './firebase/firebase';
 import { useAuth } from './contexts/AuthContext';
 
 function App() {
-  const [profile, setProfile] = useState(null);
-  const { user } = useAuth();
-
-  const handleLogout = () => {
-    auth.signOut().then(() => {
-      setProfile(null);
-    });
-  };
+  const { user, signout } = useAuth();
 
   return (
     <Router>
-      {user && <button onClick={handleLogout}>Logout</button>}
+      {user && <button onClick={signout}>Logout</button>}
       <Route exact path="/">
         {user ? (
           <Redirect to="/profile" />
