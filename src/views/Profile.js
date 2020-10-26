@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
 import NavBar from './NavBar';
+import { useAuth } from '../contexts/AuthContext';
 
 // TODO:
 // create UI
@@ -8,25 +8,14 @@ import NavBar from './NavBar';
 // handle updating profile
 
 function Profile(props) {
-  useEffect(() => {
-    console.log('profile:', props.profile);
-  }, [props.profile]);
+  const { user } = useAuth();
   return (
     <div>
-      {props.profile ? (
-        <>
-          <NavBar />
-          <p>Welcome back {props.profile.email}!</p>
-          <p>Welcome back {props.profile.displayName}!</p>
-          <img
-            alt={`avatar for ${props.profile.email}`}
-            src={props.profile.photoURL}
-          />
-          <p> Welcome back {props.profile.photoURL}!</p>
-        </>
-      ) : (
-        <Redirect to="/login" />
-      )}
+      <NavBar />
+      <p>Welcome back {user.email}!</p>
+      <p>Welcome back {user.displayName}!</p>
+      <img alt={`avatar for ${user.email}`} src={user.photoURL} />
+      <p> Welcome back {user.photoURL}!</p>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SignUp, Login, Profile } from './views';
+import ProtectedRoute from './components/ProtectedRoute';
 import {
   BrowserRouter as Router,
   Route,
@@ -21,9 +22,8 @@ function App() {
           <Link to="/login">You have to login first</Link>
         )}
       </Route>
-      <Route path="/profile">
-        <Profile profile={user} />
-      </Route>
+      <ProtectedRoute path="/profile" component={Profile} />
+
       <Route path="/register">
         <SignUp />
       </Route>
