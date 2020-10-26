@@ -1,4 +1,5 @@
 import React from 'react';
+import SocialProfileAuth from './SocialProfileAuth';
 import { Lock, Envelope } from '../components/icons';
 import { auth } from '../firebase/firebase';
 
@@ -56,17 +57,7 @@ function SignUp(props) {
             </button>
           </form>
         </div>
-        <p className="text-center text-gray-600 text-xs">
-          or continue with these social profiles
-        </p>
-        <div id="social-profiles" className="flex justify-center my-3">
-          <a href="/" className="mx-3">
-            <img src="/Google.svg" alt="google logo" />
-          </a>
-          <a href="/" className="mx-3">
-            <img src="/Github.svg" alt="github logo" />
-          </a>
-        </div>
+        <SocialProfileAuth />
         <p className="text-center text-sm">
           Already a member?{' '}
           <a href="/" className="text-blue-600">
