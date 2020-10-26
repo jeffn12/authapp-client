@@ -15,6 +15,9 @@ export function AuthContextProvider({ children }) {
   //TODO: move auth functions here
 
   // register with email
+  function registerWithEmail(email, password) {
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
 
   // login with email
   function loginWithEmail(email, password) {
@@ -31,6 +34,7 @@ export function AuthContextProvider({ children }) {
 
   const value = {
     user,
+    registerWithEmail,
     loginWithEmail,
   };
   return (

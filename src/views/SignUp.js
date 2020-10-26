@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Lock, Envelope } from '../components/icons';
-import { auth } from '../firebase/firebase';
 import SocialProfileAuth from '../components/SocialProfileAuth';
+import { useAuth } from '../contexts/AuthContext';
 
-function SignUp(props) {
+function SignUp() {
+  const { registerWithEmail } = useAuth();
+  const history = useHistory();
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    await auth.createUserWithEmailAndPassword(
-      e.target.email.value,
-      e.target.password.value
-    );
+    await registerWithEmail(e.target.email.value, e.target.password.value);
+    history.push('/profile');
   };
 
   return (
