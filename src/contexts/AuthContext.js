@@ -32,6 +32,10 @@ export function AuthContextProvider({ children }) {
   }
 
   // authenticate with Google
+  function loginWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return handlePopupAuth(provider);
+  }
 
   // authenticate with popup
   function handlePopupAuth(provider) {
@@ -55,6 +59,7 @@ export function AuthContextProvider({ children }) {
     registerWithEmail,
     loginWithEmail,
     loginWithGitHub,
+    loginWithGoogle,
     signout,
   };
   return (

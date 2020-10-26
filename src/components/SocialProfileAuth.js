@@ -1,12 +1,10 @@
 import React from 'react';
-import firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
-import { auth } from '../firebase/firebase';
 import { useAuth } from '../contexts/AuthContext';
 
 function SocialProfileSignIn() {
   const history = useHistory();
-  const { loginWithGitHub } = useAuth();
+  const { loginWithGitHub, loginWithGoogle } = useAuth();
 
   const handleGitHubAuth = async () => {
     console.log('Logging in with GitHub');
@@ -16,12 +14,7 @@ function SocialProfileSignIn() {
 
   const handleGoogleAuth = async () => {
     console.log('Logging in with Google');
-    const provider = new firebase.auth.GoogleAuthProvider();
-    handlePopupAuth(provider);
-  };
-
-  const handlePopupAuth = async (provider) => {
-    await auth.signInWithPopup(provider);
+    await loginWithGoogle();
     history.push('/profile');
   };
 
