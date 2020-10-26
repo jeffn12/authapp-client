@@ -1,14 +1,17 @@
 import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Lock, Envelope } from '../components/icons';
-import { auth } from '../firebase/firebase';
+import SocialProfileAuth from '../components/SocialProfileAuth';
+import { useAuth } from '../contexts/AuthContext';
 
-function SignUp(props) {
+function SignUp() {
+  const { registerWithEmail } = useAuth();
+  const history = useHistory();
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    await auth.createUserWithEmailAndPassword(
-      e.target.email.value,
-      e.target.password.value
-    );
+    await registerWithEmail(e.target.email.value, e.target.password.value);
+    history.push('/profile');
   };
 
   return (
@@ -56,22 +59,12 @@ function SignUp(props) {
             </button>
           </form>
         </div>
-        <p className="text-center text-gray-600 text-xs">
-          or continue with these social profiles
-        </p>
-        <div id="social-profiles" className="flex justify-center my-3">
-          <a href="/" className="mx-3">
-            <img src="/Google.svg" alt="google logo" />
-          </a>
-          <a href="/" className="mx-3">
-            <img src="/Github.svg" alt="github logo" />
-          </a>
-        </div>
+        <SocialProfileAuth />
         <p className="text-center text-sm">
           Already a member?{' '}
-          <a href="/" className="text-blue-600">
+          <Link to="/login" className="text-blue-600">
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>

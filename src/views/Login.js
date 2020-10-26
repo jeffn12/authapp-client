@@ -1,44 +1,24 @@
 import React from 'react';
+import SocialProfileAuth from '../components/SocialProfileAuth';
 import { Lock, Envelope } from '../components/icons';
-import { useHistory } from 'react-router-dom';
-import { auth } from '../firebase/firebase';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 function Login(props) {
   const history = useHistory();
+  const { loginWithEmail } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (e.target.email.value === '' || e.target.password.value === '') {
     } else {
       try {
-        await auth.signInWithEmailAndPassword(
-          e.target.email.value,
-          e.target.password.value
-        );
+        await loginWithEmail(e.target.email.value, e.target.password.value);
         history.push('/profile');
       } catch (err) {
         console.log('uh oh', err);
       }
     }
-  };
-
-  const handleGitHubAuth = async () => {
-    console.log('Logging in with GitHub');
-    const provider = new firebase.auth.GithubAuthProvider();
-    handlePopupAuth(provider);
-  };
-
-  const handleGoogleAuth = async () => {
-    console.log('Logging in with Google');
-    const provider = new firebase.auth.GoogleAuthProvider();
-    handlePopupAuth(provider);
-  };
-
-  const handlePopupAuth = async (provider) => {
-    await auth.signInWithPopup(provider);
-    history.push('/profile');
   };
 
   return (
@@ -80,22 +60,12 @@ function Login(props) {
             </button>
           </form>
         </div>
-        <p className="text-center text-gray-600 text-xs">
-          or continue with these social profiles
-        </p>
-        <div id="social-profiles" className="flex justify-center my-3">
-          <button className="mx-3" onClick={handleGoogleAuth}>
-            <img src="/Google.svg" alt="google logo" />
-          </button>
-          <button className="mx-3" onClick={handleGitHubAuth}>
-            <img src="/Github.svg" alt="github logo" />
-          </button>
-        </div>
+        <SocialProfileAuth />
         <p className="text-center text-sm">
           Don't have an account yet?{' '}
-          <a href="/" className="text-blue-600">
+          <Link to="/register" className="text-blue-600">
             Register
-          </a>
+          </Link>
         </p>
       </div>
     </div>
