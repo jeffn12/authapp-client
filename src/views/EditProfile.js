@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
 
 function EditProfile() {
   const { user } = useAuth();
-  console.log(user);
+  const name = useRef(null);
+  const bio = useRef(null);
+  const phone = useRef(null);
+  const email = useRef(null);
+
+  function onSubmit(e) {
+    e.preventDefault();
+    let updates = [];
+    if (email.current.value !== '') updates.email = email.current.value;
+    if (name.current.value !== '') updates.name = name.current.value;
+    if (phone.current.value !== '') updates.phone = phone.current.value;
+    if (bio.current.value !== '') updates.bio = bio.current.value;
+
+    console.log(updates);
+  }
+
   return (
     <>
       <NavBar />
@@ -20,7 +35,7 @@ function EditProfile() {
                 Changes will be relfected across all services
               </p>
             </div>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={(e) => onSubmit(e)}>
               <div className="flex items-center">
                 <img
                   src={user.photoURL}
@@ -37,6 +52,7 @@ function EditProfile() {
                   type="text"
                   name="name"
                   placeholder="Enter your name..."
+                  ref={name}
                   className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
                 />
               </div>
@@ -48,6 +64,7 @@ function EditProfile() {
                   rows="3"
                   name="bio"
                   placeholder="Enter your bio..."
+                  ref={bio}
                   className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
                 />
               </div>
@@ -59,6 +76,7 @@ function EditProfile() {
                   type="text"
                   name="phone"
                   placeholder="Enter your phone number..."
+                  ref={phone}
                   className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
                 />
               </div>
@@ -70,7 +88,9 @@ function EditProfile() {
                   type="text"
                   name="email"
                   placeholder="Enter your email..."
+                  ref={email}
                   className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
+                  disabled={user.providerData[0].providerId !== 'password'}
                 />
               </div>
               <button className="px-5 py-2 bg-indigo-600 text-white rounded-lg text-xs">
