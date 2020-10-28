@@ -19,6 +19,7 @@ function EditProfile() {
     if (phone.current.value !== '') updates.phone = phone.current.value;
     if (bio.current.value !== '') updates.bio = bio.current.value;
     if (email.current.value !== '') {
+      updates.push(user.updateEmail(email.current.value));
     }
     console.log(updates);
     Promise.all(updates).then((results) => {
