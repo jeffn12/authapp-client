@@ -19,11 +19,20 @@ function EditProfile() {
     if (name.current.value !== '') {
       updates.push(user.updateProfile({ displayName: name.current.value }));
     }
-    if (phone.current.value !== '') updates.phone = phone.current.value;
+    if (phone.current.value !== '') {
+      updates.push(
+        db.collection('users').doc(user.uid).set({
+          phoneNumber: phone.current.value,
+        })
+      );
+    }
+    // TODO: follow pattern (or create a new one to update user object?) to set/get phone number in firestore
     if (bio.current.value !== '') {
-      db.collection('users').doc(user.uid).set({
-        bio: bio.current.value,
-      });
+      updates.push(
+        db.collection('users').doc(user.uid).set({
+          bio: bio.current.value,
+        })
+      );
     }
     if (email.current.value !== '') {
       updates.push(user.updateEmail(email.current.value));
