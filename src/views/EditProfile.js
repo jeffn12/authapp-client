@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
+import { db } from '../firebase/firebase';
 
 function EditProfile() {
   const { user } = useAuth();
@@ -17,7 +18,11 @@ function EditProfile() {
       updates.push(user.updateProfile({ displayName: name.current.value }));
     }
     if (phone.current.value !== '') updates.phone = phone.current.value;
-    if (bio.current.value !== '') updates.bio = bio.current.value;
+    if (bio.current.value !== '') {
+      db.collection('users').doc(user.uid).set({
+        bio: bio.current.value,
+      });
+    }
     if (email.current.value !== '') {
       updates.push(user.updateEmail(email.current.value));
     }

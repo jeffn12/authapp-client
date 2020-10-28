@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 import FS_VARS from './.firebase.config.js';
 
 const firebaseConfig = {
@@ -14,4 +15,5 @@ const firebaseConfig = {
 
 const fbApp = firebase.initializeApp(firebaseConfig);
 export const auth = fbApp.auth();
+export const db = fbApp.firestore();
 export default fbApp;
