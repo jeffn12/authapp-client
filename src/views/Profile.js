@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 // TODO:
 // create UI
@@ -9,6 +10,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 function Profile(props) {
   const { user } = useAuth();
+  const history = useHistory();
   console.log(user);
   return (
     <>
@@ -27,7 +29,10 @@ function Profile(props) {
                 Some info may be visible to other people
               </p>
             </div>
-            <button className="rounded-lg border border-gray-600 w-24 h-10 text-gray-600 hover:bg-gray-400">
+            <button
+              className="rounded-lg border border-gray-600 w-24 h-10 text-gray-600 hover:bg-gray-400"
+              onClick={() => history.push('/profile/edit')}
+            >
               Edit
             </button>
           </div>

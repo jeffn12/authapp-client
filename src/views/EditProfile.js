@@ -1,0 +1,87 @@
+import React from 'react';
+import NavBar from './NavBar';
+import { useAuth } from '../contexts/AuthContext';
+
+function EditProfile() {
+  const { user } = useAuth();
+  console.log(user);
+  return (
+    <>
+      <NavBar />
+      <div className="flex items-center justify-center  my-10 w-100">
+        <div className="flex flex-col w-3/4 space-y-4">
+          <button className="self-start text-indigo-500 text-xl">
+            {'<  Back'}
+          </button>
+          <div className="p-8 border border-gray-400 rounded-lg shadow-xl">
+            <div className="my-3">
+              <h1 className="text-xl font-medium">Change Info</h1>
+              <p className="text-xs text-gray-600">
+                Changes will be relfected across all services
+              </p>
+            </div>
+            <form className="space-y-4">
+              <div className="flex items-center">
+                <img
+                  src={user.photoURL}
+                  alt={`avatar for ${user.displayName || 'user'}`}
+                  className="w-12 h-12 mr-4"
+                />
+                <p className="text-xs text-gray-600">CHANGE PHOTO</p>
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="name" className="text-sm">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name..."
+                  className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="bio" className="text-sm">
+                  Bio
+                </label>
+                <textarea
+                  rows="3"
+                  name="bio"
+                  placeholder="Enter your bio..."
+                  className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="phone" className="text-sm">
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Enter your phone number..."
+                  className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="email" className="text-sm">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="Enter your email..."
+                  className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
+                />
+              </div>
+              <button className="px-5 py-2 bg-indigo-600 text-white rounded-lg text-xs">
+                Save
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default EditProfile;
