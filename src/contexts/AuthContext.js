@@ -11,6 +11,7 @@ export function useAuth() {
 
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [bio, setBio] = useState('');
   const [loading, setLoading] = useState(true);
 
   /** Registration/Login helpers */
@@ -47,17 +48,22 @@ export function AuthContextProvider({ children }) {
     return auth.signOut();
   }
 
+  function getBio(uid) {
+    db.collection('users')
+      .doc(uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setBio(doc.data().bio);
+        }
+      });
+  }
+
   // manage user status
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const bioDoc = await db.collection('users').doc(user.uid).get();
-        if (bioDoc.exists) {
-          const bio = await bioDoc.data().bio;
-          console.log(bio);
-          user.bio = bio || '';
-        }
-      }
+    auth.onAuthStateChanged((user) => {
+      if (user) getBio(user.uid);
+      else setBio('');
       setUser(user);
       setLoading(false);
     });
@@ -65,6 +71,7 @@ export function AuthContextProvider({ children }) {
 
   const value = {
     user,
+    bio,
     registerWithEmail,
     loginWithEmail,
     loginWithGitHub,

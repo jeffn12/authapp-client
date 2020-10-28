@@ -2,23 +2,12 @@ import React, { useEffect } from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
-import { db } from '../firebase/firebase';
 
 function Profile(props) {
-  const { user } = useAuth();
+  const { user, bio } = useAuth();
   const history = useHistory();
-  console.log(user);
+  console.log(bio);
 
-  useEffect(() => {
-    user &&
-      db
-        .collection('users')
-        .doc(user.uid)
-        .get()
-        .then((doc) => {
-          console.log(doc.data());
-        });
-  }, [user]);
   return (
     <>
       <NavBar />
@@ -57,7 +46,7 @@ function Profile(props) {
           </div>
           <div className="flex justify-start items-center border border-t-0 border-gray-400 px-12 py-3 h-16">
             <h4 className="w-1/3 text-xs text-gray-400">BIO</h4>
-            <p className="text-sm font-semibold">{user.bio}</p>
+            <p className="text-sm font-semibold">{bio}</p>
           </div>
           <div className="flex justify-start items-center border border-t-0 border-gray-400 px-12 py-3 h-16">
             <h4 className="w-1/3 text-xs text-gray-400">PHONE</h4>
