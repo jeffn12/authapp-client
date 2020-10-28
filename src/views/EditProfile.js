@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase/firebase';
+import { useHistory } from 'react-router-dom';
 
 function EditProfile() {
-  const { user } = useAuth();
+  const { user, getBio } = useAuth();
+  const history = useHistory();
   const name = useRef(null);
   const bio = useRef(null);
   const phone = useRef(null);
@@ -26,9 +28,9 @@ function EditProfile() {
     if (email.current.value !== '') {
       updates.push(user.updateEmail(email.current.value));
     }
-    console.log(updates);
     Promise.all(updates).then((results) => {
-      console.log(results);
+      getBio(user.uid);
+      history.push('/profile');
     });
   }
 

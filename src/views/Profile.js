@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 function Profile(props) {
   const { user, bio } = useAuth();
   const history = useHistory();
-  console.log(bio);
 
   return (
     <>

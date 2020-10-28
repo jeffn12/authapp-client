@@ -48,8 +48,10 @@ export function AuthContextProvider({ children }) {
     return auth.signOut();
   }
 
+  // set the user bio from firestore
   function getBio(uid) {
-    db.collection('users')
+    return db
+      .collection('users')
       .doc(uid)
       .get()
       .then((doc) => {
@@ -72,6 +74,7 @@ export function AuthContextProvider({ children }) {
   const value = {
     user,
     bio,
+    getBio,
     registerWithEmail,
     loginWithEmail,
     loginWithGitHub,
