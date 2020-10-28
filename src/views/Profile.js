@@ -57,7 +57,7 @@ function Profile(props) {
           </div>
           <div className="flex justify-start items-center border border-t-0 border-gray-400 px-12 py-3 h-16">
             <h4 className="w-1/3 text-xs text-gray-400">BIO</h4>
-            <p className="text-sm font-semibold">bio...</p>
+            <p className="text-sm font-semibold">{user.bio}</p>
           </div>
           <div className="flex justify-start items-center border border-t-0 border-gray-400 px-12 py-3 h-16">
             <h4 className="w-1/3 text-xs text-gray-400">PHONE</h4>
