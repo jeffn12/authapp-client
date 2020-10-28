@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
-
-// TODO:
-// create UI
-// handle fields not found
-// handle updating profile
+import { db } from '../firebase/firebase';
 
 function Profile(props) {
   const { user } = useAuth();
   const history = useHistory();
   console.log(user);
+
+  useEffect(() => {
+    user &&
+      db
+        .collection('users')
+        .doc(user.uid)
+        .get()
+        .then((doc) => {
+          console.log(doc.data());
+        });
+  }, [user]);
   return (
     <>
       <NavBar />

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import firebase from 'firebase/app';
-import { auth } from '../firebase/firebase';
+import { auth, db } from '../firebase/firebase';
 
 const AuthContext = createContext();
 
@@ -49,7 +49,15 @@ export function AuthContextProvider({ children }) {
 
   // manage user status
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const bioDoc = await db.collection('users').doc(user.uid).get();
+        if (bioDoc.exists) {
+          const bio = await bioDoc.data().bio;
+          console.log(bio);
+          user.bio = bio || '';
+        }
+      }
       setUser(user);
       setLoading(false);
     });
