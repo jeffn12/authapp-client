@@ -12,12 +12,18 @@ function EditProfile() {
   function onSubmit(e) {
     e.preventDefault();
     let updates = [];
-    if (email.current.value !== '') updates.email = email.current.value;
-    if (name.current.value !== '') updates.name = name.current.value;
+
+    if (name.current.value !== '') {
+      updates.push(user.updateProfile({ displayName: name.current.value }));
+    }
     if (phone.current.value !== '') updates.phone = phone.current.value;
     if (bio.current.value !== '') updates.bio = bio.current.value;
-
+    if (email.current.value !== '') {
+    }
     console.log(updates);
+    Promise.all(updates).then((results) => {
+      console.log(results);
+    });
   }
 
   return (

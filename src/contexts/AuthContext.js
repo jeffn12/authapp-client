@@ -13,7 +13,7 @@ export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //TODO: move auth functions here
+  /** Registration/Login helpers */
 
   // register with email
   function registerWithEmail(email, password) {
@@ -46,6 +46,7 @@ export function AuthContextProvider({ children }) {
   function signout() {
     return auth.signOut();
   }
+
   // manage user status
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
