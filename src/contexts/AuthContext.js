@@ -12,6 +12,7 @@ export function useAuth() {
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [bio, setBio] = useState('');
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   /** Registration/Login helpers */
@@ -61,9 +62,25 @@ export function AuthContextProvider({ children }) {
       });
   }
 
+  function getProfile(user) {
+    return db
+      .collection('users')
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        // get a profile if it exists, if it doesn't, we need to create one
+        if (doc.exists) {
+          setProfile(doc.data());
+        } else {
+          //createProfile(user);
+        }
+      });
+  }
+
   // manage user status
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+      // when we get the user, we also need their profile
       if (user) getBio(user.uid);
       else setBio('');
       setUser(user);
