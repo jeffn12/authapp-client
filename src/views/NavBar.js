@@ -9,7 +9,7 @@ function NavBar() {
       <img src="/devchallenges.svg" alt="devchallenges logo" className="" />
       <div className="flex-grow flex justify-end items-center space-x-2">
         <img
-          src={user.photoURL}
+          src={user.photoURL || '/missing_photo.svg'}
           alt="avatar for user"
           className="rounded-lg h-8 w-8"
         />

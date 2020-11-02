@@ -43,7 +43,7 @@ function Profile() {
             <div className="flex justify-start items-center border border-t-0 border-gray-400 px-12 py-3">
               <h4 className="w-1/3 text-xs text-gray-400">PHOTO</h4>
               <img
-                src={user.photoURL}
+                src={user.photoURL || '/missing_photo.svg'}
                 alt={`avatar of username`}
                 className="rounded-lg w-16 h-16"
               />

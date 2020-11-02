@@ -36,18 +36,24 @@ function EditProfile() {
     // phone number (firestore)
     if (phone.current.value !== '') {
       updates.push(
-        db.collection('users').doc(user.uid).set({
-          phoneNumber: phone.current.value,
-        })
+        db.collection('users').doc(user.uid).set(
+          {
+            phoneNumber: phone.current.value,
+          },
+          { merge: true }
+        )
       );
     }
 
     // bio (firestore)
     if (bio.current.value !== '') {
       updates.push(
-        db.collection('users').doc(user.uid).set({
-          bio: bio.current.value,
-        })
+        db.collection('users').doc(user.uid).set(
+          {
+            bio: bio.current.value,
+          },
+          { merge: true }
+        )
       );
     }
 
@@ -81,7 +87,7 @@ function EditProfile() {
             <form className="space-y-4" onSubmit={(e) => onSubmit(e)}>
               <div className="flex items-center">
                 <img
-                  src={user.photoURL}
+                  src={user.photoURL || '/missing_photo.svg'}
                   alt={`avatar for ${user.displayName || 'user'}`}
                   className="w-12 h-12 mr-4"
                 />
