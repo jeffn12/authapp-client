@@ -46,6 +46,8 @@ export function AuthContextProvider({ children }) {
 
   // logout
   function signout() {
+    console.log('clearing profile...');
+    setProfile(null);
     return auth.signOut();
   }
 
@@ -63,16 +65,26 @@ export function AuthContextProvider({ children }) {
   }
 
   function getProfile(user) {
-    return db
-      .collection('users')
+    console.log('getting profile');
+    db.collection('users')
       .doc(user.uid)
       .get()
       .then((doc) => {
         // get a profile if it exists, if it doesn't, we need to create one
         if (doc.exists) {
-          setProfile(doc.data());
+          const userProfile = doc.data();
+          console.log('Got profile: ', userProfile);
+          setProfile(userProfile);
         } else {
-          //createProfile(user);
+          let newProfile = {};
+          newProfile.displayName =
+            user.displayName !== '' ? user.displayName : user.email;
+          newProfile.bio = '';
+          newProfile.phoneNumber = user.phoneNumber;
+          newProfile.email = user.email;
+          console.log('Setting new profile: ', newProfile);
+          setProfile(newProfile);
+          db.collection('users').doc(user.uid).set(newProfile);
         }
       });
   }
@@ -81,9 +93,8 @@ export function AuthContextProvider({ children }) {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       // when we get the user, we also need their profile
-      if (user) getBio(user.uid);
-      else setBio('');
       setUser(user);
+      user && getProfile(user);
       setLoading(false);
     });
   }, []);
@@ -91,6 +102,7 @@ export function AuthContextProvider({ children }) {
   const value = {
     user,
     bio,
+    profile,
     getBio,
     registerWithEmail,
     loginWithEmail,
