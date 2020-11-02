@@ -4,6 +4,14 @@ import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase/firebase';
 import { useHistory } from 'react-router-dom';
 
+/**USER PROFILE:
+ * photoURL (user)
+ * email (user)
+ * displayName (user)
+ * bio (firestore)
+ * phone (firestore)
+ */
+
 function EditProfile() {
   const { user, getBio } = useAuth();
   const history = useHistory();
@@ -16,9 +24,16 @@ function EditProfile() {
     e.preventDefault();
     let updates = [];
 
+    // check for updates:
+
+    // photo (user)
+
+    // displayName (user)
     if (name.current.value !== '') {
       updates.push(user.updateProfile({ displayName: name.current.value }));
     }
+
+    // phone number (firestore)
     if (phone.current.value !== '') {
       updates.push(
         db.collection('users').doc(user.uid).set({
@@ -26,7 +41,8 @@ function EditProfile() {
         })
       );
     }
-    // TODO: follow pattern (or create a new one to update user object?) to set/get phone number in firestore
+
+    // bio (firestore)
     if (bio.current.value !== '') {
       updates.push(
         db.collection('users').doc(user.uid).set({
@@ -34,9 +50,13 @@ function EditProfile() {
         })
       );
     }
+
+    // email (user)
     if (email.current.value !== '') {
       updates.push(user.updateEmail(email.current.value));
     }
+
+    // send updates, refresh user/profile
     Promise.all(updates).then((results) => {
       getBio(user.uid);
       history.push('/profile');

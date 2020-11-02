@@ -3,6 +3,14 @@ import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 
+/**USER PROFILE:
+ * photoURL (user)
+ * email (user)
+ * displayName (user)
+ * bio (firestore)
+ * phone (user)
+ */
+
 function Profile() {
   const { profile, user } = useAuth();
   const history = useHistory();
@@ -42,7 +50,7 @@ function Profile() {
             </div>
             <div className="flex justify-start items-center border border-t-0 border-gray-400 px-12 py-3 h-16">
               <h4 className="w-1/3 text-xs text-gray-400">NAME</h4>
-              <p className="text-sm font-semibold">{profile.displayName}</p>
+              <p className="text-sm font-semibold">{user.displayName}</p>
             </div>
             <div className="flex justify-start items-center border border-t-0 border-gray-400 px-12 py-3 h-16">
               <h4 className="w-1/3 text-xs text-gray-400">BIO</h4>
@@ -50,11 +58,11 @@ function Profile() {
             </div>
             <div className="flex justify-start items-center border border-t-0 border-gray-400 px-12 py-3 h-16">
               <h4 className="w-1/3 text-xs text-gray-400">PHONE</h4>
-              <p className="text-sm font-semibold">{profile.phoneNumber}</p>
+              <p className="text-sm font-semibold">{user.phoneNumber}</p>
             </div>
             <div className="flex justify-start items-center border border-t-0 rounded-b-xl border-gray-400 px-12 py-3 h-16">
               <h4 className="w-1/3 text-xs text-gray-400">EMAIL</h4>
-              <p className="text-sm font-semibold">{profile.email}</p>
+              <p className="text-sm font-semibold">{user.email}</p>
             </div>
           </div>
         </div>
