@@ -18,4 +18,6 @@ const fbApp = firebase.initializeApp(firebaseConfig);
 export const auth = fbApp.auth();
 export const db = fbApp.firestore();
 export const store = firebase.storage(fbApp).ref();
+export const storeURLStem =
+  'https://firebasestorage.googleapis.com/v0/b/dc-authapp.appspot.com/o/';
 export default fbApp;

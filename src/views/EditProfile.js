@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
-import { db, store } from '../firebase/firebase';
+import { db, store, storeURLStem } from '../firebase/firebase';
 import { useHistory } from 'react-router-dom';
 
 /**USER PROFILE:
@@ -29,12 +29,21 @@ function EditProfile() {
 
     // photo (user/storage)
     if (photo.current.value !== null) {
+      // parse file name into 'image/{name}.{ext}'
+      const fullPath = photo.current.value.split('\\');
+      const fileName = `images/${fullPath[fullPath.length - 1]}`;
+      console.log(fileName);
       // upload new photo to storage and get link
       const file = e.target.file.files[0];
-      const fileImageRef = store.child(`images/${photo.current.value}`);
+      const fileImageRef = store.child(fileName);
       fileImageRef
         .put(file)
-        .then((res) => console.log(res))
+        .then((res) => {
+          // generate public URL to file
+          let url = storeURLStem + `${urlify(fileName)}?alt=media`;
+          // save URL to user
+          updates.push(user.updateProfile({ photoURL: url }));
+        })
         .catch((err) => console.error(err));
       // update user profile with link to new image
     }
@@ -78,6 +87,14 @@ function EditProfile() {
       getProfile(user);
       history.push('/profile');
     });
+  }
+
+  function urlify(fileName) {
+    // replace '/' with '%2F'
+    // replace ' ' with '%20'
+    let urlFormatted = fileName.replace('/', '%2F').replace(' ', '%20');
+    console.log(urlFormatted);
+    return urlFormatted;
   }
 
   return (
