@@ -74,7 +74,10 @@ function EditProfile() {
       <NavBar />
       <div className="flex items-center justify-center  my-10 w-100">
         <div className="flex flex-col w-3/4 space-y-4">
-          <button className="self-start text-indigo-500 text-xl">
+          <button
+            className="self-start text-indigo-500 text-xl"
+            onClick={() => history.push('/profile')}
+          >
             {'<  Back'}
           </button>
           <div className="p-8 border border-gray-400 rounded-lg shadow-xl">
