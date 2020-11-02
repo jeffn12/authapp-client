@@ -11,7 +11,6 @@ export function useAuth() {
 
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [bio, setBio] = useState('');
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -51,19 +50,7 @@ export function AuthContextProvider({ children }) {
     return auth.signOut();
   }
 
-  // set the user bio from firestore
-  function getBio(uid) {
-    return db
-      .collection('users')
-      .doc(uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          setBio(doc.data().bio);
-        }
-      });
-  }
-
+  // get the profile from firestore and set it to state
   function getProfile(user) {
     console.log('getting profile');
     db.collection('users')
@@ -101,9 +88,8 @@ export function AuthContextProvider({ children }) {
 
   const value = {
     user,
-    bio,
     profile,
-    getBio,
+    getProfile,
     registerWithEmail,
     loginWithEmail,
     loginWithGitHub,

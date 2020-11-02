@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
  */
 
 function EditProfile() {
-  const { user, getBio } = useAuth();
+  const { user, getProfile } = useAuth();
   const history = useHistory();
   const name = useRef(null);
   const bio = useRef(null);
@@ -58,7 +58,7 @@ function EditProfile() {
 
     // send updates, refresh user/profile
     Promise.all(updates).then((results) => {
-      getBio(user.uid);
+      getProfile(user);
       history.push('/profile');
     });
   }
