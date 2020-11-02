@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import NavBar from './NavBar';
 import { useAuth } from '../contexts/AuthContext';
-import { db } from '../firebase/firebase';
+import { db, store } from '../firebase/firebase';
 import { useHistory } from 'react-router-dom';
 
 /**USER PROFILE:
@@ -13,12 +13,13 @@ import { useHistory } from 'react-router-dom';
  */
 
 function EditProfile() {
-  const { user, getProfile } = useAuth();
+  const { user, getProfile, uploadPhoto } = useAuth();
   const history = useHistory();
   const name = useRef(null);
   const bio = useRef(null);
   const phone = useRef(null);
   const email = useRef(null);
+  const photo = useRef(null);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -26,7 +27,17 @@ function EditProfile() {
 
     // check for updates:
 
-    // photo (user)
+    // photo (user/storage)
+    if (photo.current.value !== null) {
+      // upload new photo to storage and get link
+      const file = e.target.file.files[0];
+      const fileImageRef = store.child(`images/${photo.current.value}`);
+      fileImageRef
+        .put(file)
+        .then((res) => console.log(res))
+        .catch((err) => console.error(err));
+      // update user profile with link to new image
+    }
 
     // displayName (user)
     if (name.current.value !== '') {
@@ -95,6 +106,7 @@ function EditProfile() {
                   className="w-12 h-12 mr-4"
                 />
                 <p className="text-xs text-gray-600">CHANGE PHOTO</p>
+                <input type="file" ref={photo} name="file" />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="name" className="text-sm">

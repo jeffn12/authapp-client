@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import firebase from 'firebase/app';
-import { auth, db } from '../firebase/firebase';
+import { auth, db, store } from '../firebase/firebase';
 
 const AuthContext = createContext();
 
@@ -76,12 +76,17 @@ export function AuthContextProvider({ children }) {
       });
   }
 
+  function uploadPhoto(file) {
+    return store.put(file);
+  }
+
   // manage user status
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       // when we get the user, we also need their profile
       setUser(user);
       user && getProfile(user);
+      console.log(store);
       setLoading(false);
     });
   }, []);
@@ -89,6 +94,7 @@ export function AuthContextProvider({ children }) {
   const value = {
     user,
     profile,
+    uploadPhoto,
     getProfile,
     registerWithEmail,
     loginWithEmail,
