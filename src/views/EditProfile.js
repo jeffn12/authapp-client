@@ -25,10 +25,9 @@ function EditProfile() {
     e.preventDefault();
     let updates = [];
 
-    // check for updates:
-
     // photo (user/storage)
-    if (photo.current.value !== null) {
+    if (photo.current.value !== '') {
+      console.log(photo.current.value);
       // parse file name into 'image/{name}.{ext}'
       const fullPath = photo.current.value.split('\\');
       const fileName = `images/${fullPath[fullPath.length - 1]}`;
