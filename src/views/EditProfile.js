@@ -19,6 +19,7 @@ function EditProfile() {
   const bio = useRef(null);
   const phone = useRef(null);
   const email = useRef(null);
+  const password = useRef(null);
   const photo = useRef(null);
 
   function onSubmit(e) {
@@ -49,6 +50,11 @@ function EditProfile() {
     // email (user)
     if (email.current.value !== '') {
       updates.push(user.updateEmail(email.current.value));
+    }
+
+    // password (user)
+    if (password.current.value !== '') {
+      updates.push(user.updatePassword(password.current.value));
     }
 
     // phone number (firestore)
@@ -153,7 +159,7 @@ function EditProfile() {
                   Email
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   id="email"
                   placeholder="Enter your email..."
@@ -167,9 +173,10 @@ function EditProfile() {
                   Password
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   id="password"
+                  ref={password}
                   placeholder="Enter new password..."
                   className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
                   disabled={user.providerData[0].providerId !== 'password'}
