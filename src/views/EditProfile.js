@@ -22,6 +22,10 @@ function EditProfile() {
   const password = useRef(null);
   const photo = useRef(null);
 
+  function openFileSelector() {
+    photo.current.click();
+  }
+
   function onSubmit(e) {
     e.preventDefault();
     let updates = [];
@@ -113,10 +117,16 @@ function EditProfile() {
                 <img
                   src={user.photoURL || '/missing_photo.svg'}
                   alt={`avatar for ${user.displayName || 'user'}`}
-                  className="w-12 h-12 mr-4"
+                  className="w-12 h-12 mr-4 cursor-pointer"
+                  onClick={openFileSelector}
                 />
-                <p className="text-xs text-gray-600">CHANGE PHOTO</p>
-                <input type="file" ref={photo} name="file" />
+                <button
+                  className="text-xs text-gray-600"
+                  onClick={openFileSelector}
+                >
+                  CHANGE PHOTO
+                </button>
+                <input type="file" ref={photo} name="file" className="hidden" />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="name" className="text-sm">
