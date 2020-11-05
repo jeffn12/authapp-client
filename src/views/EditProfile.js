@@ -34,14 +34,17 @@ function EditProfile() {
       const file = e.target.file.files[0];
       const fileImageRef = store.child(fileName);
       let url = storeURLStem + `${urlify(fileName)}?alt=media`;
-      updates.push(user.updateProfile({ photoURL: url }));
+      userUpdates.photoURL = url;
       fileImageRef.put(file).catch((err) => console.error(err));
     }
 
     // displayName (user)
     if (name.current.value !== '') {
-      updates.push(user.updateProfile({ displayName: name.current.value }));
+      userUpdates.displayName = name.current.value;
     }
+
+    Object.keys(userUpdates).length > 0 &&
+      updates.push(user.updateProfile(userUpdates));
 
     // phone number (firestore)
     if (phone.current.value !== '') {
@@ -53,7 +56,7 @@ function EditProfile() {
       firestoreUpdates.bio = bio.current.value;
     }
 
-    (firestoreUpdates.bio || firestoreUpdates.phone) &&
+    Object.keys(firestoreUpdates).length > 0 &&
       updates.push(
         db
           .collection('users')
@@ -61,10 +64,6 @@ function EditProfile() {
           .set(firestoreUpdates, { merge: true })
       );
 
-    // email (user)
-    if (email.current.value !== '') {
-      updates.push(user.updateEmail(email.current.value));
-    }
     console.log('updating', updates);
 
     // send updates, refresh user/profile
