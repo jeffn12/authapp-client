@@ -27,24 +27,13 @@ function EditProfile() {
 
     // photo (user/storage)
     if (photo.current.value !== '') {
-      console.log(photo.current.value);
-      // parse file name into 'image/{name}.{ext}'
       const fullPath = photo.current.value.split('\\');
       const fileName = `images/${fullPath[fullPath.length - 1]}`;
-      console.log(fileName);
-      // upload new photo to storage and get link
       const file = e.target.file.files[0];
       const fileImageRef = store.child(fileName);
-      fileImageRef
-        .put(file)
-        .then((res) => {
-          // generate public URL to file
-          let url = storeURLStem + `${urlify(fileName)}?alt=media`;
-          // save URL to user
-          updates.push(user.updateProfile({ photoURL: url }));
-        })
-        .catch((err) => console.error(err));
-      // update user profile with link to new image
+      let url = storeURLStem + `${urlify(fileName)}?alt=media`;
+      updates.push(user.updateProfile({ photoURL: url }));
+      fileImageRef.put(file).catch((err) => console.error(err));
     }
 
     // displayName (user)
@@ -80,6 +69,7 @@ function EditProfile() {
     if (email.current.value !== '') {
       updates.push(user.updateEmail(email.current.value));
     }
+    console.log('updating', updates);
 
     // send updates, refresh user/profile
     Promise.all(updates).then((results) => {
