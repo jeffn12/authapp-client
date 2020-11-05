@@ -46,6 +46,11 @@ function EditProfile() {
     Object.keys(userUpdates).length > 0 &&
       updates.push(user.updateProfile(userUpdates));
 
+    // email (user)
+    if (email.current.value !== '') {
+      updates.push(user.updateEmail(email.current.value));
+    }
+
     // phone number (firestore)
     if (phone.current.value !== '') {
       firestoreUpdates.phoneNumber = phone.current.value;
@@ -63,8 +68,6 @@ function EditProfile() {
           .doc(user.uid)
           .set(firestoreUpdates, { merge: true })
       );
-
-    console.log('updating', updates);
 
     // send updates, refresh user/profile
     Promise.all(updates).then((results) => {
@@ -152,8 +155,22 @@ function EditProfile() {
                 <input
                   type="text"
                   name="email"
+                  id="email"
                   placeholder="Enter your email..."
                   ref={email}
+                  className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
+                  disabled={user.providerData[0].providerId !== 'password'}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="password" className="text-sm">
+                  Password
+                </label>
+                <input
+                  type="text"
+                  name="password"
+                  id="password"
+                  placeholder="Enter new password..."
                   className="rounded-lg w-100 border border-gray-800 p-2 text-sm"
                   disabled={user.providerData[0].providerId !== 'password'}
                 />
