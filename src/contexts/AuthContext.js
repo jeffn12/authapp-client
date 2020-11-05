@@ -76,10 +76,6 @@ export function AuthContextProvider({ children }) {
       });
   }
 
-  function uploadPhoto(file) {
-    return store.put(file);
-  }
-
   // manage user status
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -94,7 +90,6 @@ export function AuthContextProvider({ children }) {
   const value = {
     user,
     profile,
-    uploadPhoto,
     getProfile,
     registerWithEmail,
     loginWithEmail,

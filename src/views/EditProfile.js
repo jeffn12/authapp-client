@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
  */
 
 function EditProfile() {
-  const { user, getProfile, uploadPhoto } = useAuth();
+  const { user, getProfile } = useAuth();
   const history = useHistory();
   const name = useRef(null);
   const bio = useRef(null);
