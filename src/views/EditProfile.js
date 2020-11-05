@@ -24,6 +24,8 @@ function EditProfile() {
   function onSubmit(e) {
     e.preventDefault();
     let updates = [];
+    let userUpdates = {};
+    let firestoreUpdates = {};
 
     // photo (user/storage)
     if (photo.current.value !== '') {
@@ -43,27 +45,21 @@ function EditProfile() {
 
     // phone number (firestore)
     if (phone.current.value !== '') {
-      updates.push(
-        db.collection('users').doc(user.uid).set(
-          {
-            phoneNumber: phone.current.value,
-          },
-          { merge: true }
-        )
-      );
+      firestoreUpdates.phoneNumber = phone.current.value;
     }
 
     // bio (firestore)
     if (bio.current.value !== '') {
-      updates.push(
-        db.collection('users').doc(user.uid).set(
-          {
-            bio: bio.current.value,
-          },
-          { merge: true }
-        )
-      );
+      firestoreUpdates.bio = bio.current.value;
     }
+
+    (firestoreUpdates.bio || firestoreUpdates.phone) &&
+      updates.push(
+        db
+          .collection('users')
+          .doc(user.uid)
+          .set(firestoreUpdates, { merge: true })
+      );
 
     // email (user)
     if (email.current.value !== '') {
