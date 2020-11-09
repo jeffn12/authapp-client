@@ -26,7 +26,7 @@ function EditProfile() {
     photo.current.click();
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     let updates = [];
     let userUpdates = {};
@@ -40,7 +40,7 @@ function EditProfile() {
       const fileImageRef = store.child(fileName);
       let url = storeURLStem + `${urlify(fileName)}?alt=media`;
       userUpdates.photoURL = url;
-      fileImageRef.put(file).catch((err) => console.error(err));
+      await fileImageRef.put(file).catch((err) => console.error(err));
     }
 
     // displayName (user)
@@ -87,10 +87,7 @@ function EditProfile() {
   }
 
   function urlify(fileName) {
-    // replace '/' with '%2F'
-    // replace ' ' with '%20'
     let urlFormatted = fileName.replace('/', '%2F').replace(' ', '%20');
-    console.log(urlFormatted);
     return urlFormatted;
   }
 
