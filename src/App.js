@@ -11,11 +11,10 @@ import {
 import { useAuth } from './contexts/AuthContext';
 
 function App() {
-  const { user, signout } = useAuth();
+  const { user } = useAuth();
 
   return (
     <Router>
-      {user && <button onClick={signout}>Logout</button>}
       <Switch>
         <Route exact path="/">
           {user ? (

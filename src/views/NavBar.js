@@ -6,7 +6,7 @@ function NavBar() {
   const { user } = useAuth();
 
   return (
-    <div className="flex justify-between w-100 mx-1 relative">
+    <div className="flex justify-between w-100 m-2 relative">
       <img src="/devchallenges.svg" alt="devchallenges logo" className="" />
       <div className="flex-grow flex justify-end items-center space-x-2">
         <img
