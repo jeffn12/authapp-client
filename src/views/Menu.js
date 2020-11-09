@@ -1,13 +1,22 @@
 import React from 'react';
 import Lock from '../components/icons/Lock';
 import { useAuth } from '../contexts/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 function Menu() {
   const { signout } = useAuth();
+  const history = useHistory();
 
   return (
     <div className="border rounded-xl p-2 text-xs space-y-3 bg-white w-48">
-      <MenuItem icon={Lock}>My Profile</MenuItem>
+      <MenuItem
+        icon={Lock}
+        onClick={() => {
+          history.push('/profile');
+        }}
+      >
+        My Profile
+      </MenuItem>
       <hr />
       <MenuItem icon={Lock} className="text-red-600" onClick={signout}>
         Logout
