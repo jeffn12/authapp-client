@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Lock, Envelope } from '../components/icons';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SocialProfileAuth from '../components/SocialProfileAuth';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -10,15 +11,19 @@ function SignUp() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await registerWithEmail(e.target.email.value, e.target.password.value);
-    history.push('/profile');
+    try {
+      await registerWithEmail(e.target.email.value, e.target.password.value);
+      history.push('/profile');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div className="flex items-center justify-center h-screen">
       <div
         id="login-container"
-        className="border-2 border-gray-400 rounded-lg max-w-sm p-8"
+        className="border-2 border-gray-400 rounded-lg max-w-sm w-10/12 p-8"
       >
         <img
           src="/devchallenges.svg"
@@ -34,26 +39,40 @@ function SignUp() {
         </p>
         <div id="login-form" className="my-6">
           <form onSubmit={onSubmit} className="m-0">
-            <label htmlFor="email">
-              <Envelope className="fill-current text-gray-500 h-4 m-3 absolute" />
+            <div className="relative">
+              <label htmlFor="email">
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="fill-current text-gray-500 h-4 m-3 absolute"
+                />
+              </label>
               <input
                 id="email"
                 type="text"
                 name="email"
                 className="border-2 border-gray-400 rounded-lg w-full h-10 pl-8 focus:outline-none text-sm"
                 placeholder="email"
+                aria-label="email"
+                required
               />
-            </label>
-            <label htmlFor="password">
-              <Lock className="fill-current text-gray-500 h-4 m-3 absolute" />
+            </div>
+            <div className="relative">
+              <label htmlFor="password">
+                <FontAwesomeIcon
+                  icon={faLock}
+                  className="fill-current text-gray-500 h-4 m-3 absolute left-0 bottom-0"
+                />
+              </label>
               <input
                 id="password"
                 type="password"
                 name="password"
                 className="border-2 border-gray-400 rounded-lg w-full h-10 pl-8 focus:outline-none text-sm"
                 placeholder="password"
+                aria-label="password"
+                required
               />
-            </label>
+            </div>
             <button className="bg-blue-600 text-white rounded-lg w-full h-8 mt-3">
               Start coding now
             </button>

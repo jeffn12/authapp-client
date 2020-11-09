@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Menu from './Menu';
 import { useAuth } from '../contexts/AuthContext';
-import { ArrowUp, ArrowDown } from '../components/icons';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 function NavBar() {
   const { user } = useAuth();
@@ -29,9 +30,15 @@ function NavBar() {
         <p className="text-xs">{user.displayName}</p>
 
         {showMenu ? (
-          <ArrowUp className="fill-current text-gray-700 w-4" />
+          <FontAwesomeIcon
+            icon={faCaretUp}
+            className="fill-current text-gray-700 w-4"
+          />
         ) : (
-          <ArrowDown className="fill-current text-gray-700 w-4" />
+          <FontAwesomeIcon
+            icon={faCaretDown}
+            className="fill-current text-gray-700 w-4"
+          />
         )}
       </button>
       {showMenu && (

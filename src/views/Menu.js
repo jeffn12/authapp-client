@@ -1,16 +1,17 @@
 import React from 'react';
-import Lock from '../components/icons/Lock';
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 
 function Menu() {
   const { signout } = useAuth();
   const history = useHistory();
 
   return (
-    <div className="border rounded-xl p-2 text-xs space-y-3 bg-white w-48">
+    <div className="border rounded-xl p-2 space-y-3 bg-white w-48">
       <MenuItem
-        icon={Lock}
+        icon={faUser}
         onClick={() => {
           history.push('/profile');
         }}
@@ -18,7 +19,7 @@ function Menu() {
         My Profile
       </MenuItem>
       <hr />
-      <MenuItem icon={Lock} className="text-red-600" onClick={signout}>
+      <MenuItem icon={faSignOutAlt} className="text-red-600" onClick={signout}>
         Logout
       </MenuItem>
     </div>
@@ -26,14 +27,14 @@ function Menu() {
 }
 
 function MenuItem(props) {
-  const { icon: Icon, className, onClick, children } = props;
+  const { icon, className, onClick, children } = props;
   return (
     <button
-      className={`${className} flex justify-center hover:bg-gray-300 p-3 rounded-lg w-full`}
+      className={`${className} flex items-center hover:bg-gray-300 p-3 rounded-lg w-full`}
       onClick={onClick}
     >
-      <Icon className="w-4 fill-current" />
-      <span className="flex-1 ml-5 text-left">{children}</span>
+      <FontAwesomeIcon icon={icon} className="text-sm" />
+      <span className="flex-1 ml-5 text-left text-xs">{children}</span>
     </button>
   );
 }

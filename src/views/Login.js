@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SocialProfileAuth from '../components/SocialProfileAuth';
-import { Lock, Envelope } from '../components/icons';
+import AlertBanner from '../components/AlertBanner';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
-function Login(props) {
+function Login() {
+  const [errors, setErrors] = useState([]);
   const history = useHistory();
   const { loginWithEmail } = useAuth();
 
@@ -17,6 +20,7 @@ function Login(props) {
         history.push('/profile');
       } catch (err) {
         console.log('uh oh', err);
+        setErrors([...errors, err]);
       }
     }
   };
@@ -25,36 +29,52 @@ function Login(props) {
     <div className="flex items-center justify-center h-screen">
       <div
         id="login-container"
-        className="border-2 border-gray-400 rounded-lg max-w-sm p-8"
+        className="border-2 border-gray-400 rounded-lg max-w-sm w-10/12 p-8"
       >
         <img
           src="/devchallenges.svg"
           alt="devchallenges logo with text"
           className="my-3"
         />
+        <AlertBanner className="bg-red-300" message="Test message" />
+        {/*         {errors.length > 0 &&
+          errors.map((error, i) => (
+          ))} */}
         <p className="font-semibold my-3 mr-5 text-lg leading-snug">Login</p>
         <div id="login-form" className="my-6">
           <form className="m-0" onSubmit={handleSubmit}>
-            <label htmlFor="email">
-              <Envelope className="fill-current text-gray-500 h-4 m-3 absolute" />
+            <div className="relative">
+              <label htmlFor="email">
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="fill-current text-gray-500 h-4 m-3 absolute"
+                />
+              </label>
               <input
                 id="email"
                 type="text"
                 className="border-2 border-gray-400 rounded-lg w-full h-10 pl-8 focus:outline-none text-sm"
                 placeholder="email"
+                aria-label="email"
                 required
               />
-            </label>
-            <label htmlFor="password">
-              <Lock className="fill-current text-gray-500 h-4 m-3 absolute" />
+            </div>
+            <div className="relative">
+              <label htmlFor="password">
+                <FontAwesomeIcon
+                  icon={faLock}
+                  className="fill-current text-gray-500 h-4 m-3 absolute left-0 bottom-0"
+                />
+              </label>
               <input
                 id="password"
                 type="password"
                 className="border-2 border-gray-400 rounded-lg w-full h-10 pl-8 focus:outline-none text-sm"
                 placeholder="password"
+                aria-label="password"
                 required
               />
-            </label>
+            </div>
             <button className="bg-blue-600 text-white rounded-lg w-full h-8 mt-3">
               Login
             </button>
