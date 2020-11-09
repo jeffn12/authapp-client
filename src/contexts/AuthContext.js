@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import firebase from 'firebase/app';
-import { auth, db, store } from '../firebase/firebase';
+import { auth, db } from '../firebase/firebase';
 
 const AuthContext = createContext();
 
@@ -45,14 +45,12 @@ export function AuthContextProvider({ children }) {
 
   // logout
   function signout() {
-    console.log('clearing profile...');
     setProfile(null);
     return auth.signOut();
   }
 
   // get the profile from firestore and set it to state
   function getProfile(user) {
-    console.log('getting profile');
     db.collection('users')
       .doc(user.uid)
       .get()
@@ -60,7 +58,6 @@ export function AuthContextProvider({ children }) {
         // get a profile if it exists, if it doesn't, we need to create one
         if (doc.exists) {
           const userProfile = doc.data();
-          console.log('Got profile: ', userProfile);
           setProfile(userProfile);
         } else {
           let newProfile = {};
@@ -69,7 +66,6 @@ export function AuthContextProvider({ children }) {
           newProfile.bio = '';
           newProfile.phoneNumber = user.phoneNumber;
           newProfile.email = user.email;
-          console.log('Setting new profile: ', newProfile);
           setProfile(newProfile);
           db.collection('users').doc(user.uid).set(newProfile);
         }
@@ -82,7 +78,6 @@ export function AuthContextProvider({ children }) {
       // when we get the user, we also need their profile
       setUser(user);
       user && getProfile(user);
-      console.log(store);
       setLoading(false);
     });
   }, []);
