@@ -17,26 +17,25 @@ function NavBar() {
       <Link to="/" className="flex items-center">
         <img src="/devchallenges.svg" alt="devchallenges logo" className="" />
       </Link>
-      <div className="flex-grow flex justify-end items-center space-x-2">
+      <button
+        className="flex justify-end items-center space-x-2"
+        onClick={toggleMenu}
+      >
         <img
           src={user.photoURL || '/missing_photo.svg'}
           alt="avatar for user"
           className="rounded-lg h-8 w-8"
         />
         <p className="text-xs">{user.displayName}</p>
-        <button
-          onClick={toggleMenu}
-          className="text-gray-900 flex justify-center items-center"
-        >
-          {showMenu ? (
-            <ArrowUp className="fill-current text-gray-700 w-4" />
-          ) : (
-            <ArrowDown className="fill-current text-gray-700 w-4" />
-          )}
-        </button>
-      </div>
+
+        {showMenu ? (
+          <ArrowUp className="fill-current text-gray-700 w-4" />
+        ) : (
+          <ArrowDown className="fill-current text-gray-700 w-4" />
+        )}
+      </button>
       {showMenu && (
-        <div className="absolute right-0 mt-10">
+        <div className="absolute right-0 mt-12">
           <Menu />
         </div>
       )}
