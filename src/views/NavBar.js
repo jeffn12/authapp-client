@@ -17,7 +17,7 @@ function NavBar() {
         <p className="text-xs">{user.displayName}</p>
         <button>V</button>
       </div>
-      <div className="absolute right-0 mx-5 mt-10">
+      <div className="absolute right-0 mt-10">
         <Menu />
       </div>
     </div>
