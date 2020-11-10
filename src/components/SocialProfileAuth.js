@@ -2,20 +2,26 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-function SocialProfileSignIn() {
+function SocialProfileSignIn({ setErrors }) {
   const history = useHistory();
   const { loginWithGitHub, loginWithGoogle } = useAuth();
 
   const handleGitHubAuth = async () => {
-    console.log('Logging in with GitHub');
-    await loginWithGitHub();
-    history.push('/profile');
+    try {
+      await loginWithGitHub();
+      history.push('/profile');
+    } catch (err) {
+      setErrors([err]);
+    }
   };
 
   const handleGoogleAuth = async () => {
-    console.log('Logging in with Google');
-    await loginWithGoogle();
-    history.push('/profile');
+    try {
+      await loginWithGoogle();
+      history.push('/profile');
+    } catch (err) {
+      setErrors([err]);
+    }
   };
 
   return (

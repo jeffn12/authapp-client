@@ -86,7 +86,7 @@ function Login() {
             </button>
           </form>
         </div>
-        <SocialProfileAuth />
+        <SocialProfileAuth setErrors={setErrors} />
         <p className="text-center text-sm">
           Don't have an account yet?{' '}
           <Link to="/register" className="text-blue-600">

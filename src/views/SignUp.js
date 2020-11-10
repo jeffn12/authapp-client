@@ -92,7 +92,7 @@ function SignUp() {
             </button>
           </form>
         </div>
-        <SocialProfileAuth />
+        <SocialProfileAuth setErrors={setErrors} />
         <p className="text-center text-sm">
           Already a member?{' '}
           <Link to="/login" className="text-blue-600">
