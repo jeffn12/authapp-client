@@ -7,11 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 function Login() {
-  const [errors, setErrors] = useState([
-    { message: 'error 1', status: '1' },
-    { message: 'error 2', status: '2' },
-    { message: 'error 3', status: '3' },
-  ]);
+  const [errors, setErrors] = useState([]);
   const history = useHistory();
   const { loginWithEmail } = useAuth();
 
@@ -23,8 +19,7 @@ function Login() {
         await loginWithEmail(e.target.email.value, e.target.password.value);
         history.push('/profile');
       } catch (err) {
-        console.log('uh oh', err);
-        setErrors([...errors, err]);
+        setErrors([err]);
       }
     }
   };
@@ -48,7 +43,7 @@ function Login() {
               className="bg-red-300"
               message={error.message}
               close={() => {
-                setErrors(errors.filter((err) => err.status !== error.status));
+                setErrors(errors.filter((err) => err.code !== error.code));
               }}
             />
           ))}

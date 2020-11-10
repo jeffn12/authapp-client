@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SocialProfileAuth from '../components/SocialProfileAuth';
+import AlertBanner from '../components/AlertBanner';
 import { useAuth } from '../contexts/AuthContext';
 
 function SignUp() {
   const { registerWithEmail } = useAuth();
   const history = useHistory();
+  const [errors, setErrors] = useState([]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +18,7 @@ function SignUp() {
       history.push('/profile');
     } catch (err) {
       console.log(err);
+      setErrors([err]);
     }
   };
 
@@ -37,6 +40,17 @@ function SignUp() {
           Master web development by making real-life projects. There are
           multiple paths for you to choose
         </p>
+        {errors.length > 0 &&
+          errors.map((error, i) => (
+            <AlertBanner
+              key={i}
+              className="bg-red-300"
+              message={error.message}
+              close={() => {
+                setErrors(errors.filter((err) => err.code !== error.code));
+              }}
+            />
+          ))}
         <div id="login-form" className="my-6">
           <form onSubmit={onSubmit} className="m-0">
             <div className="relative">
