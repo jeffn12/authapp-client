@@ -7,7 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 function Login() {
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([
+    { message: 'error 1', status: '1' },
+    { message: 'error 2', status: '2' },
+    { message: 'error 3', status: '3' },
+  ]);
   const history = useHistory();
   const { loginWithEmail } = useAuth();
 
@@ -36,11 +40,18 @@ function Login() {
           alt="devchallenges logo with text"
           className="my-3"
         />
-        <AlertBanner className="bg-red-300" message="Test message" />
-        {/*         {errors.length > 0 &&
-          errors.map((error, i) => (
-          ))} */}
         <p className="font-semibold my-3 mr-5 text-lg leading-snug">Login</p>
+        {errors.length > 0 &&
+          errors.map((error, i) => (
+            <AlertBanner
+              key={i}
+              className="bg-red-300"
+              message={error.message}
+              close={() => {
+                setErrors(errors.filter((err) => err.status !== error.status));
+              }}
+            />
+          ))}
         <div id="login-form" className="my-6">
           <form className="m-0" onSubmit={handleSubmit}>
             <div className="relative">
