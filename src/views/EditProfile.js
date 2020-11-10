@@ -40,7 +40,10 @@ function EditProfile() {
       const fileImageRef = store.child(fileName);
       let url = storeURLStem + `${urlify(fileName)}?alt=media`;
       userUpdates.photoURL = url;
-      await fileImageRef.put(file).catch((err) => console.error(err));
+      await fileImageRef.put(file).catch((err) => {
+        // TODO: handle this better (reset to old picture, tell user)
+        console.error(err);
+      });
     }
 
     // displayName (user)

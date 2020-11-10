@@ -17,7 +17,6 @@ function SignUp() {
       await registerWithEmail(e.target.email.value, e.target.password.value);
       history.push('/profile');
     } catch (err) {
-      console.log(err);
       setErrors([err]);
     }
   };
