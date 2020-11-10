@@ -17,11 +17,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          {user ? (
-            <Redirect to="/profile" />
-          ) : (
-            <Link to="/login">You have to login first</Link>
-          )}
+          {user ? <Redirect to="/profile" /> : <Redirect to="/login" />}
         </Route>
         <ProtectedRoute path="/profile/edit" component={EditProfile} />
         <ProtectedRoute path="/profile" component={Profile} />
