@@ -1,5 +1,3 @@
-<!-- Please update value in the {}  -->
-
 <h1 align="center">Auth App</h1>
 
 <div align="center">
@@ -8,11 +6,11 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://jneu-authapp.netlify.app">
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
+    <a href="https://github.com/jeffn12/authapp-client">
       Solution
     </a>
     <span> | </span>
@@ -37,14 +35,16 @@
 
 ## Overview
 
-![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
-
-Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
-
-- Where can I see your demo?
+- Where can we find the demo?
+  - Check out the demo [here](https://jneu-authapp.netlify.app)
 - What was your experience?
+  - Another great exercise in developing a UI and UX from wireframes, and integrating protected information that can only be accessed by an authorized user. This is a great starting point for me to be able create more personalized apps for users without sensitive data ending up in places it shouldn't.
 - What have you learned/improved?
+  - While I was deciding what to use as the backend for this project, I read a lot about sessions, web tokens, cookies, and why https was invented. Ultimately, I settled on firebase because it is cost-effective, off-premise (I don't have the means to host anything on-site), and bundles all of the services I would have built myself.
 - Your wisdom? :)
+  - Don't be afraid to build from the ground up to understand something, but know when an existing solution is a better option.
+
+Note: before I decided on firebase, I built a standalone Express app with Passport to handle email/password authentication. I learned a lot about about sessions, cookies, web tokens, and password hashing, that all helped with understanding how firebase was working behind the scenes once I switched.
 
 ### Built With
 
@@ -52,12 +52,24 @@ Introduce your projects by taking a screenshot or a gif. Try to tell visitors a 
 
 - [React](https://reactjs.org/)
 - [Tailwind](https://tailwindcss.com/)
+- [firebase](https://firebase.com)
 
 ## Features
 
 <!-- List the features of your application or follow the template. Don't share the figma file here :) -->
 
 This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/N1fvBjQfhlkctmwj1tnw) was to build an application to complete the given user stories.
+
+- register a new account
+- log in to an existing account
+- register/login with email & password, Google, or GitHub
+- logout of account
+- view profile details (only when logged in)
+  - photo
+  - name
+  - bio
+  - phone
+- edit profile
 
 ## How To Use
 
@@ -67,7 +79,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/jeffn12/authapp-client
 
 # Install dependencies
 $ npm install
@@ -82,6 +94,9 @@ $ npm start
 
 - [Node.js](https://nodejs.org/)
 - [Create React App](https://create-react-app.dev/)
+- [tailwindcss](https://tailwindcss.com)
+- [Firebase](https://firebase.com/)
+- [Web Dev Simplified](https://youtube.com/webdevsimplified)
 
 ## Contact
 
